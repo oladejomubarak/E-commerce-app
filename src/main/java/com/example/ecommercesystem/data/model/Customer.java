@@ -1,9 +1,11 @@
 package com.example.ecommercesystem.data.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.ArrayList;
@@ -14,11 +16,13 @@ import java.util.TreeSet;
 @Document
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Customer extends User {
     @Id
     private String id;
     private String firstName;
     private String lastName;
     private Set<String> deliveryAddress= new TreeSet<>();
+    @DBRef
     private List <Order> customerOrders = new ArrayList<>();
 }
