@@ -1,6 +1,7 @@
 package com.example.ecommercesystem.services;
 
 import com.example.ecommercesystem.data.model.Customer;
+import com.example.ecommercesystem.data.model.Order;
 import com.example.ecommercesystem.data.repository.CustomerRepository;
 import com.example.ecommercesystem.data.repository.OrderRepository;
 import com.example.ecommercesystem.dtos.request.CreateCustomerRequest;
@@ -103,12 +104,21 @@ public class CustomerServicesImpl implements CustomerServices{
     @Override
     public GetResponse deleteCustomer(String id) {
         Customer foundCustomer = customerRepository.findById(id).orElseThrow(()-> new
-                RuntimeException("Customer with the id"+ id +"not found"));
+                RuntimeException("Customer with the id"+ id +"does not exist"));
         customerRepository.delete(foundCustomer);
         return new GetResponse("Customer with the id"+ id +"has been deleted");
     }
     @Override
     public OrderProductResponse orderProduct(OrderProductRequest orderProductRequest) {
+        Customer foundCustomer = customerRepository.findById(orderProductRequest.getCustomerId()).orElseThrow(()->
+                new RuntimeException("Customer with the id"+ orderProductRequest.getCustomerId() +"not found"));
+        Order customerOrder = new Order();
+        customerOrder.setProductName(orderProductRequest.getProductName());
+        customerOrder.setProductCategories(orderProductRequest.getProductCategories());
+        customerOrder.setPrice(orderProductRequest.getPrice());
+        customerOrder.setQuantity(orderProductRequest.getQuantity());
+        customerOrder.setTotal(customerOrder.getPrice() * customerOrder.getQuantity());
+
         return null;
     }
 

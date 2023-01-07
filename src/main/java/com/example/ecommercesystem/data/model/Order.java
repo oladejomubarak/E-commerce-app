@@ -13,8 +13,8 @@ public class Order {
     private String id;
     private String productName;
     private ProductCategories productCategories;
-    private BigDecimal price;
-    private String quantity;
+    private double price;
+    private int quantity;
     private double total;
 
 }
