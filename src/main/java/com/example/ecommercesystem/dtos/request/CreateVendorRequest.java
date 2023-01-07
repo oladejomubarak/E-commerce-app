@@ -1,13 +1,12 @@
-package com.example.ecommercesystem.data.model;
+package com.example.ecommercesystem.dtos.request;
 
 import lombok.Data;
 
 @Data
-public class User {
-    //private String id;
+public class CreateVendorRequest {
     private String firstName;
     private String lastName;
     private String email;
-    private String password;
     private String phoneNumber;
+    private String password;
 }

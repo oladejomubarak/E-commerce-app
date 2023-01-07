@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface VendorRepository extends MongoRepository<Vendor,String> {
     Optional<Vendor> findVendorByEmail(String email);
+    Optional<Vendor> findVendorByPhoneNumber(String phoneNumber);
 }

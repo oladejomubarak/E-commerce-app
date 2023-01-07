@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Document
-public class Vendor {
+public class Vendor extends User {
     @Id
     private String id;
     private String storeNumber;

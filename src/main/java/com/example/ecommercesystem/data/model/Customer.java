@@ -20,8 +20,6 @@ import java.util.TreeSet;
 public class Customer extends User {
     @Id
     private String id;
-    private String firstName;
-    private String lastName;
     private Set<String> deliveryAddress= new TreeSet<>();
     @DBRef
     private List <Order> customerOrders = new ArrayList<>();

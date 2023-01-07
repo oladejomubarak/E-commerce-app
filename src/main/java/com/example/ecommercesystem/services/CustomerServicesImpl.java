@@ -33,18 +33,18 @@ public class CustomerServicesImpl implements CustomerServices{
         return registerCustomer(createCustomerRequest);
     }
 
-    private CreateCustomerResponse registerCustomer(CreateCustomerRequest createUserRequest) {
-        if(customerRepository.findCustomerByEmail(createUserRequest.getEmail()).isPresent())
+    private CreateCustomerResponse registerCustomer(CreateCustomerRequest createCustomerRequest) {
+        if(customerRepository.findCustomerByEmail(createCustomerRequest.getEmail()).isPresent())
             throw new RuntimeException("The email already exists, try another email");
         else
-            customer.setEmail(createUserRequest.getEmail());
-        if(customerRepository.findCustomerByEmail(createUserRequest.getPhoneNumber()).isPresent())
+            customer.setEmail(createCustomerRequest.getEmail());
+        if(customerRepository.findCustomerByPhoneNumber(createCustomerRequest.getPhoneNumber()).isPresent())
             throw new RuntimeException("Phone number already exists, choose another phone number");
         else
-            customer.setPhoneNumber(createUserRequest.getPhoneNumber());
-        customer.setFirstName(createUserRequest.getFirstName());
-        customer.setLastName(createUserRequest.getLastName());
-        customer.setPassword(createUserRequest.getPassword());
+            customer.setPhoneNumber(createCustomerRequest.getPhoneNumber());
+        customer.setFirstName(createCustomerRequest.getFirstName());
+        customer.setLastName(createCustomerRequest.getLastName());
+        customer.setPassword(createCustomerRequest.getPassword());
 
 
         Customer savedCustomer = customerRepository.save(customer);
