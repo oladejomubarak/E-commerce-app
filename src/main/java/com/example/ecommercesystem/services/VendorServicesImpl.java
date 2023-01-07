@@ -41,7 +41,7 @@ public class VendorServicesImpl implements VendorServices{
         Vendor savedVendor = vendorRepository.save(vendor);
 
         CreateVendorResponse createVendorResponse = new CreateVendorResponse();
-        createVendorResponse.setMessage("User created successfully");
+        createVendorResponse.setMessage("Vendor created successfully");
         createVendorResponse.setId(savedVendor.getId());
         createVendorResponse.setStatusCode("201");
         return createVendorResponse;
@@ -73,7 +73,7 @@ public class VendorServicesImpl implements VendorServices{
     @Override
     public GetResponse updateVendor(UpdateVendorRequest updateVendorRequest) {
         Vendor foundVendor = vendorRepository.findById(updateVendorRequest.getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Vendor not found"));
         foundVendor.setEmail(updateVendorRequest.getEmail() != null
                 && !updateVendorRequest.getEmail().equals("") ? updateVendorRequest.getEmail() : foundVendor.getEmail());
         foundVendor.setPassword(updateVendorRequest.getPassword() != null
@@ -85,7 +85,7 @@ public class VendorServicesImpl implements VendorServices{
         foundVendor.setPhoneNumber(updateVendorRequest.getPhoneNumber() != null
                 && !updateVendorRequest.getPhoneNumber().equals("") ? updateVendorRequest.getPhoneNumber() : foundVendor.getPhoneNumber());
         vendorRepository.save(foundVendor);
-        return new GetResponse("User detail updated successfully");
+        return new GetResponse("Vendor details updated successfully");
     }
 
     @Override

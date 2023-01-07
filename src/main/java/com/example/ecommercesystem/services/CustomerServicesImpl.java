@@ -50,7 +50,7 @@ public class CustomerServicesImpl implements CustomerServices{
         Customer savedCustomer = customerRepository.save(customer);
 
         CreateCustomerResponse createUserResponse = new CreateCustomerResponse();
-        createUserResponse.setMessage("User created successfully");
+        createUserResponse.setMessage("Customer created successfully");
         createUserResponse.setId(savedCustomer.getId());
         createUserResponse.setStatusCode("201");
         return createUserResponse;
@@ -83,7 +83,7 @@ public class CustomerServicesImpl implements CustomerServices{
     @Override
     public GetResponse updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
         Customer foundCustomer = customerRepository.findById(updateCustomerRequest.getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new RuntimeException("Vendor not found"));
         foundCustomer.setEmail(updateCustomerRequest.getEmail() != null && !updateCustomerRequest.getEmail().equals("")
                 ? updateCustomerRequest.getEmail() : foundCustomer.getEmail());
         foundCustomer.setPassword(updateCustomerRequest.getPassword() != null && !updateCustomerRequest.getPassword()
