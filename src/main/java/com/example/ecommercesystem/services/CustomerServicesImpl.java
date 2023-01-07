@@ -95,19 +95,21 @@ public class CustomerServicesImpl implements CustomerServices{
         customerRepository.save(foundCustomer);
         return new GetResponse("User detail updated successfully");
     }
+    @Override
+    public List<Customer> findAllCustomers() {
+        return customerRepository.findAll();
+    }
 
+    @Override
+    public GetResponse deleteCustomer(String id) {
+        Customer foundCustomer = customerRepository.findById(id).orElseThrow(()-> new
+                RuntimeException("Customer with the id"+ id +"not found"));
+        customerRepository.delete(foundCustomer);
+        return new GetResponse("Customer with the id"+ id +"has been deleted");
+    }
     @Override
     public OrderProductResponse orderProduct(OrderProductRequest orderProductRequest) {
         return null;
     }
 
-    @Override
-    public List<Customer> findAllCustomers() {
-        return null;
-    }
-
-    @Override
-    public GetResponse deleteCustomer(int id) {
-        return null;
-    }
 }

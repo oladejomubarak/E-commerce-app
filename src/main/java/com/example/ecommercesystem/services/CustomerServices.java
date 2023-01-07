@@ -23,5 +23,5 @@ public interface CustomerServices {
 
     List<Customer> findAllCustomers();
 
-    GetResponse deleteCustomer(int id);
+    GetResponse deleteCustomer(String id);
 }
