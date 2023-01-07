@@ -15,8 +15,8 @@ public class VendorServicesImpl implements VendorServices{
     @Autowired
     private VendorRepository vendorRepository;
 
-    //@Autowired
-    //private ProductServices productServices;
+    @Autowired
+    private ProductServices productServices;
 
     private final Vendor vendor = new Vendor();
     @Override
@@ -51,7 +51,7 @@ public class VendorServicesImpl implements VendorServices{
         if (!UserValidator.isValidEmail(createVendorRequest.getEmail())) throw new RuntimeException(
                 String.format("The email %s is invalid", createVendorRequest.getEmail()));
         if (!UserValidator.isValidPassword(createVendorRequest.getPassword())) throw new RuntimeException(
-                String.format("Password %s is weak, choose a strong one", createVendorRequest.getPassword()));
+                ("Password is weak, choose a strong one"));
         if (!UserValidator.isValidPhoneNumber(createVendorRequest.getPhoneNumber())) throw new RuntimeException(
                 String.format("The phone number %s is invalid", createVendorRequest.getPhoneNumber()));
     }
@@ -59,7 +59,15 @@ public class VendorServicesImpl implements VendorServices{
 
     @Override
     public LoginResponse vendorLogin(LoginRequest loginRequest) {
-        return null;
+        Vendor findVendor = vendorRepository.findVendorByEmail(loginRequest.getEmail()).orElseThrow(()->
+                new RuntimeException("Email not found"));
+        if(loginRequest.getPassword().equals(findVendor.getPassword()))
+            findVendor.setPassword(loginRequest.getPassword());
+        else
+            throw new RuntimeException("Incorrect password");
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setMessage("You're successfully logged in");
+        return loginResponse;
     }
 
     @Override
