@@ -84,15 +84,16 @@ public class CustomerServicesImpl implements CustomerServices{
     public GetResponse updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
         Customer foundCustomer = customerRepository.findById(updateCustomerRequest.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        foundCustomer.setEmail(updateCustomerRequest.getEmail() != null
-                && !updateCustomerRequest.getEmail().equals("") ? updateCustomerRequest.getEmail() : foundCustomer.getEmail());
-        foundCustomer.setPassword(updateCustomerRequest.getPassword() != null
-                && !updateCustomerRequest.getPassword().equals("") ? updateCustomerRequest.getPassword() : foundCustomer.getPassword());
-        foundCustomer.setFirstName(updateCustomerRequest.getFirstName() != null
-                && !updateCustomerRequest.getFirstName().equals("") ? updateCustomerRequest.getFirstName() : foundCustomer.getFirstName());foundCustomer.setLastName(updateCustomerRequest.getLastName() != null
-                && !updateCustomerRequest.getLastName().equals("") ? updateCustomerRequest.getLastName() : foundCustomer.getLastName());
-        foundCustomer.setPhoneNumber(updateCustomerRequest.getPhoneNumber() != null
-                && !updateCustomerRequest.getPhoneNumber().equals("") ? updateCustomerRequest.getPhoneNumber() : foundCustomer.getPhoneNumber());
+        foundCustomer.setEmail(updateCustomerRequest.getEmail() != null && !updateCustomerRequest.getEmail().equals("")
+                ? updateCustomerRequest.getEmail() : foundCustomer.getEmail());
+        foundCustomer.setPassword(updateCustomerRequest.getPassword() != null && !updateCustomerRequest.getPassword()
+                .equals("") ? updateCustomerRequest.getPassword() : foundCustomer.getPassword());
+        foundCustomer.setFirstName(updateCustomerRequest.getFirstName() != null && !updateCustomerRequest.getFirstName().
+                equals("") ? updateCustomerRequest.getFirstName() : foundCustomer.getFirstName());
+        foundCustomer.setLastName(updateCustomerRequest.getLastName() != null && !updateCustomerRequest.getLastName().
+                equals("") ? updateCustomerRequest.getLastName() : foundCustomer.getLastName());
+        foundCustomer.setPhoneNumber(updateCustomerRequest.getPhoneNumber() != null && !updateCustomerRequest.getPhoneNumber().
+                equals("") ? updateCustomerRequest.getPhoneNumber() : foundCustomer.getPhoneNumber());
         customerRepository.save(foundCustomer);
         return new GetResponse("User detail updated successfully");
     }
@@ -112,14 +113,26 @@ public class CustomerServicesImpl implements CustomerServices{
     public OrderProductResponse orderProduct(OrderProductRequest orderProductRequest) {
         Customer foundCustomer = customerRepository.findById(orderProductRequest.getCustomerId()).orElseThrow(()->
                 new RuntimeException("Customer with the id"+ orderProductRequest.getCustomerId() +"not found"));
+        Order customerOrder = placeOrder(orderProductRequest);
+
+        var addOrderToList= foundCustomer.getCustomerOrders().add(customerOrder);
+        Order order = orderRepository.save(customerOrder);
+
+        OrderProductResponse orderProductResponse = new OrderProductResponse();
+        orderProductResponse.setId(order.getId());
+        orderProductResponse.setMessage("Order placed successfully");
+
+        return orderProductResponse;
+    }
+
+    private Order placeOrder(OrderProductRequest orderProductRequest) {
         Order customerOrder = new Order();
         customerOrder.setProductName(orderProductRequest.getProductName());
         customerOrder.setProductCategories(orderProductRequest.getProductCategories());
         customerOrder.setPrice(orderProductRequest.getPrice());
         customerOrder.setQuantity(orderProductRequest.getQuantity());
         customerOrder.setTotal(customerOrder.getPrice() * customerOrder.getQuantity());
-
-        return null;
+        return customerOrder;
     }
 
 }
