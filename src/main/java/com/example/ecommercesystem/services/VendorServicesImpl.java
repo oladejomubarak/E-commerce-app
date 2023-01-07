@@ -71,8 +71,21 @@ public class VendorServicesImpl implements VendorServices{
     }
 
     @Override
-    public GetResponse updateVendor(UpdateVendorRequest updateRequest) {
-        return null;
+    public GetResponse updateVendor(UpdateVendorRequest updateVendorRequest) {
+        Vendor foundVendor = vendorRepository.findById(updateVendorRequest.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        foundVendor.setEmail(updateVendorRequest.getEmail() != null
+                && !updateVendorRequest.getEmail().equals("") ? updateVendorRequest.getEmail() : foundVendor.getEmail());
+        foundVendor.setPassword(updateVendorRequest.getPassword() != null
+                && !updateVendorRequest.getPassword().equals("") ? updateVendorRequest.getPassword() : foundVendor.getPassword());
+        foundVendor.setFirstName(updateVendorRequest.getFirstName() != null
+                && !updateVendorRequest.getFirstName().equals("") ? updateVendorRequest.getFirstName() : foundVendor.getFirstName());
+        foundVendor.setLastName(updateVendorRequest.getLastName() != null
+                && !updateVendorRequest.getLastName().equals("") ? updateVendorRequest.getLastName() : foundVendor.getLastName());
+        foundVendor.setPhoneNumber(updateVendorRequest.getPhoneNumber() != null
+                && !updateVendorRequest.getPhoneNumber().equals("") ? updateVendorRequest.getPhoneNumber() : foundVendor.getPhoneNumber());
+        vendorRepository.save(foundVendor);
+        return new GetResponse("User detail updated successfully");
     }
 
     @Override
