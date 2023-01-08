@@ -21,13 +21,13 @@ class CustomerServicesImplTest {
         createCustomerRequest.setEmail("oladejomubarakade@gmail.com");
         createCustomerRequest.setPassword("Adeshina@100");
         createCustomerRequest.setPhoneNumber("0816276807999");
-        createCustomerRequest.setAddress("No 84, Sule manager street, Iwo road, Ibadan");
+        createCustomerRequest.setAddress("No 2, Sule manager street, Iwo road, Ibadan");
 
-        secondBuyerRegisterRequest = new CustomerRegistrationRequest();
-        secondBuyerRegisterRequest.setEmail("chidioke56@email.com");
-        secondBuyerRegisterRequest.setAddress("89, tejuola street, mushin, Lagos");
-        secondBuyerRegisterRequest.setPhoneNumber("08134576954");
-        secondBuyerRegisterRequest.setPassword("Dasilva19@");
+        createCustomerRequest1 = new CreateCustomerRequest();
+        createCustomerRequest1.setEmail("oladejo@gmail.com");
+        createCustomerRequest1.setPassword("kincaid@10");
+        createCustomerRequest1.setPhoneNumber("080456743897673");
+        createCustomerRequest1.setAddress("67, Iwaya, Yaba, Lagos");
 
 //        productPurchaseRequest = new ProductPurchaseRequest();
 //        productPurchaseRequest.setProductId(1);
