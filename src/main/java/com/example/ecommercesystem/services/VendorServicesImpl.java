@@ -123,11 +123,25 @@ public class VendorServicesImpl implements VendorServices{
 
     @Override
     public GetResponse updateProduct(String vendorId, ProductUpdateRequest productUpdateRequest) {
+        //Vendor foundVendor = vendorRepository.findById(vendorId).orElseThrow(()-> new RuntimeException("Vendor not found"));
+        Product foundProduct = productRepository.findById(productUpdateRequest.getId()).
+                orElseThrow(()-> new RuntimeException("product not found"));
+        foundProduct.setName(productUpdateRequest.getName() != null && !productUpdateRequest.getName().equals("")
+                ? productUpdateRequest.getName() : foundProduct.getName());
+        foundProduct.setQuantity(productUpdateRequest.getQuantity() != 0
+                ? productUpdateRequest.getQuantity() : foundProduct.getQuantity());
+        foundProduct.setPrice(productUpdateRequest.getPrice() != null ?
+                productUpdateRequest.getPrice() : foundProduct.getPrice());
+        foundProduct.setProductCategories(addProductRequest.getProductCategories());
+
         return null;
     }
 
     @Override
     public GetResponse deleteProduct(String productId) {
-        return null;
+        Product foundProduct = productRepository.findById(productId).orElseThrow(()->
+                new RuntimeException("product doesn't exist"));
+        productRepository.delete(foundProduct);
+        return new GetResponse("product successfully deleted");
     }
 }
