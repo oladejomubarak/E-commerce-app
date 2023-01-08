@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class CustomerServicesImpl implements CustomerServices{
@@ -45,6 +46,8 @@ public class CustomerServicesImpl implements CustomerServices{
         customer.setFirstName(createCustomerRequest.getFirstName());
         customer.setLastName(createCustomerRequest.getLastName());
         customer.setPassword(createCustomerRequest.getPassword());
+        Set <String> listOfCustomerAddresses = customer.getDeliveryAddress();
+        listOfCustomerAddresses.add(createCustomerRequest.getAddress());
 
 
         Customer savedCustomer = customerRepository.save(customer);
