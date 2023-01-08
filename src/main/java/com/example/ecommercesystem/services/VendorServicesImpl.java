@@ -1,6 +1,7 @@
 package com.example.ecommercesystem.services;
 
 import com.example.ecommercesystem.data.model.Customer;
+import com.example.ecommercesystem.data.model.Product;
 import com.example.ecommercesystem.data.model.Vendor;
 import com.example.ecommercesystem.data.repository.ProductRepository;
 import com.example.ecommercesystem.data.repository.VendorRepository;
@@ -97,8 +98,17 @@ public class VendorServicesImpl implements VendorServices{
     }
 
     @Override
-    public AddProductResponse addProduct(String id, AddProductRequest addProductRequest) {
+    public AddProductResponse addProduct(String vendorId, AddProductRequest addProductRequest) {
+        Vendor foundVendor = vendorRepository.findById(vendorId).orElseThrow(()-> new
+                RuntimeException("Vendor with the id"+ vendorId +"not found"));
+        Product product = new Product();
+        product.setName(addProductRequest.getName());
+        product.setQuantity(addProductRequest.getQuantity());
+        product.setPrice(addProductRequest.getPrice());
+        product.setProductCategories(addProductRequest.getProductCategories());
+        foundVendor.getProducts().add(product);
+        productServices.createProduct(addProductRequest);
 
-        return null;
+        return new AddProductResponse("Product has been added successfully");
     }
 }

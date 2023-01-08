@@ -1,9 +1,7 @@
 package com.example.ecommercesystem.services;
 
-import com.example.ecommercesystem.dtos.request.AddProductRequest;
-import com.example.ecommercesystem.dtos.request.CreateVendorRequest;
-import com.example.ecommercesystem.dtos.request.LoginRequest;
-import com.example.ecommercesystem.dtos.request.UpdateVendorRequest;
+import com.example.ecommercesystem.data.model.Product;
+import com.example.ecommercesystem.dtos.request.*;
 import com.example.ecommercesystem.dtos.response.AddProductResponse;
 import com.example.ecommercesystem.dtos.response.CreateVendorResponse;
 import com.example.ecommercesystem.dtos.response.GetResponse;
@@ -15,6 +13,11 @@ public interface VendorServices {
     GetResponse updateVendor(UpdateVendorRequest updateRequest);
     GetResponse deleteVendor(String id);
 
-    AddProductResponse addProduct(String id, AddProductRequest addProductRequest);
+    AddProductResponse addProduct(String vendorId, AddProductRequest addProductRequest);
+
+    Product findProductById(String id);
+    GetResponse updateProduct (String vendorId, ProductUpdateRequest productUpdateRequest);
+
+    GetResponse deleteProduct(String id);
 
 }
