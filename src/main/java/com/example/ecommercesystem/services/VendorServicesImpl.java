@@ -17,9 +17,6 @@ public class VendorServicesImpl implements VendorServices{
     private VendorRepository vendorRepository;
 
     @Autowired
-    private ProductServices productServices;
-
-    @Autowired
     private ProductRepository productRepository;
 
 
@@ -122,8 +119,7 @@ public class VendorServicesImpl implements VendorServices{
     }
 
     @Override
-    public GetResponse updateProduct(String vendorId, ProductUpdateRequest productUpdateRequest) {
-        //Vendor foundVendor = vendorRepository.findById(vendorId).orElseThrow(()-> new RuntimeException("Vendor not found"));
+    public GetResponse updateProduct(ProductUpdateRequest productUpdateRequest) {
         Product foundProduct = productRepository.findById(productUpdateRequest.getId()).
                 orElseThrow(()-> new RuntimeException("product not found"));
         foundProduct.setName(productUpdateRequest.getName() != null && !productUpdateRequest.getName().equals("")
@@ -132,9 +128,12 @@ public class VendorServicesImpl implements VendorServices{
                 ? productUpdateRequest.getQuantity() : foundProduct.getQuantity());
         foundProduct.setPrice(productUpdateRequest.getPrice() != null ?
                 productUpdateRequest.getPrice() : foundProduct.getPrice());
-        foundProduct.setProductCategories(addProductRequest.getProductCategories());
+        foundProduct.setProductCategories(productUpdateRequest.getProductCategories() !=null ?
+                productUpdateRequest.getProductCategories() : foundProduct.getProductCategories());
 
-        return null;
+        productRepository.save(foundProduct);
+
+        return new GetResponse("product has been updated successfully");
     }
 
     @Override

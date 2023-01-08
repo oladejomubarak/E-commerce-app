@@ -16,7 +16,7 @@ public interface VendorServices {
     AddProductResponse addProduct(String vendorId, AddProductRequest addProductRequest);
 
     Product findProductById(String id);
-    GetResponse updateProduct (String vendorId, ProductUpdateRequest productUpdateRequest);
+    GetResponse updateProduct (ProductUpdateRequest productUpdateRequest);
 
     GetResponse deleteProduct(String productId);
 
