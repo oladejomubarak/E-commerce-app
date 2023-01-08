@@ -29,16 +29,12 @@ class CustomerServicesImplTest {
         createCustomerRequest1.setPhoneNumber("080456743897673");
         createCustomerRequest1.setAddress("67, Iwaya, Yaba, Lagos");
 
-//        productPurchaseRequest = new ProductPurchaseRequest();
-//        productPurchaseRequest.setProductId(1);
-//        productPurchaseRequest.setQuantity(2);
-//        productPurchaseRequest.setCustomerId();
 
-
-//        addProductRequest = new AddProductRequest();
-//        addProductRequest.setCategory("Appliances");
-//        addProductRequest.setName("Gas cooker");
-//        addProductRequest.setPrice(650.00);
+        createCustomerRequest2 = new CreateCustomerRequest();
+        createCustomerRequest2.setEmail("oladejomuba@gmail.com");
+        createCustomerRequest2.setPassword("kincaid@101");
+        createCustomerRequest2.setPhoneNumber("070456743897673");
+        createCustomerRequest2.setAddress("32, Iwaya, Yaba, Lagos");
 
     }
 
