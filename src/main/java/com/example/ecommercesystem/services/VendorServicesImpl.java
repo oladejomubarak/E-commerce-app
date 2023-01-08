@@ -89,12 +89,16 @@ public class VendorServicesImpl implements VendorServices{
     }
 
     @Override
-    public GetResponse deleteVendor(int id) {
-        return null;
+    public GetResponse deleteVendor(String id) {
+        Vendor foundVendor = vendorRepository.findById(id).orElseThrow(()-> new
+                RuntimeException("Vendor with the id"+ id +"not found"));
+        vendorRepository.delete(foundVendor);
+        return new GetResponse("Vendor deleted successfully");
     }
 
     @Override
-    public AddProductResponse addProduct(int id, AddProductRequest addProductRequest) {
+    public AddProductResponse addProduct(String id, AddProductRequest addProductRequest) {
+
         return null;
     }
 }

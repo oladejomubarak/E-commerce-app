@@ -13,8 +13,8 @@ public interface VendorServices {
     CreateVendorResponse createVendor(CreateVendorRequest createVendorRequest);
     LoginResponse vendorLogin(LoginRequest loginRequest);
     GetResponse updateVendor(UpdateVendorRequest updateRequest);
-    GetResponse deleteVendor(int id);
+    GetResponse deleteVendor(String id);
 
-    AddProductResponse addProduct(int id, AddProductRequest addProductRequest);
+    AddProductResponse addProduct(String id, AddProductRequest addProductRequest);
 
 }
