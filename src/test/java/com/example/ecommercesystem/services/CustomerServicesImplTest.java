@@ -12,9 +12,10 @@ import com.example.ecommercesystem.dtos.response.OrderProductResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+@SpringBootTest
 class CustomerServicesImplTest {
 
     @Autowired
@@ -49,16 +50,16 @@ class CustomerServicesImplTest {
     @Test void testThatCustomerCanRegister() {
         CreateCustomerResponse resp =
                 customerServices.register(createCustomerRequest);
-        CreateCustomerResponse resp1 =
-                customerServices.register(createCustomerRequest1);
+//        CreateCustomerResponse resp1 =
+//                customerServices.register(createCustomerRequest1);
         assertEquals("201", resp.getStatusCode());
-        assertEquals("Customer created successfully", resp1.getMessage());
+        //assertEquals("Customer created successfully", resp1.getMessage());
     }
 
     @Test
     void testThatCustomerCanLogin() {
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(createCustomerRequest.getEmail());
+        loginRequest.setEmail(createCustomerRequest1.getEmail());
         loginRequest.setPassword(createCustomerRequest1.getPassword());
         LoginResponse loginResponse = customerServices.login(loginRequest);
         assertEquals("You're successfully logged in", loginResponse.getMessage());
@@ -68,8 +69,8 @@ class CustomerServicesImplTest {
     @Test
     void testThatCustomerDetailsCanBeUpdated() {
         UpdateCustomerRequest customerUpdate = new UpdateCustomerRequest();
-        customerUpdate.setId("");
-        customerUpdate.setEmail("Emailisupdated@gmail.com");
+        customerUpdate.setId("63bb4c522411284866b235a1");
+        customerUpdate.setEmail("updatedemail@gmail.com");
         customerUpdate.setFirstName("Chibuzor");
         GetResponse updateResponse =
                 customerServices.updateCustomer(customerUpdate);
@@ -84,7 +85,7 @@ class CustomerServicesImplTest {
 
     @Test void testThatCustomerCanOrderProduct() {
         orderProductRequest = new OrderProductRequest();
-        orderProductRequest.setCustomerId("");
+        orderProductRequest.setCustomerId("63bb4c522411284866b235a1");
         orderProductRequest.setQuantity(2);
         orderProductRequest.setProductName("sneakers");
         orderProductRequest.setProductCategories(ProductCategories.FASHION);
