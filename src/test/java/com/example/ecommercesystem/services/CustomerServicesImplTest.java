@@ -2,7 +2,9 @@ package com.example.ecommercesystem.services;
 
 import com.example.ecommercesystem.dtos.request.CreateCustomerRequest;
 import com.example.ecommercesystem.dtos.request.OrderProductRequest;
+import com.example.ecommercesystem.dtos.response.CreateCustomerResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,16 +40,13 @@ class CustomerServicesImplTest {
 
     }
 
-    @Test
-    void testThatCustomerCanRegister() {
-        CustomerRegistrationResponse response =
-                customerService.register(firstBuyerRegisterRequest);
-        CustomerRegistrationResponse response1 =
-                customerService.register(secondBuyerRegisterRequest);
-        System.out.println(response);
-        System.out.println(response1);
-        assertEquals(response.getStatusCode(), 201);
-        assertEquals("User registration successful", response1.getMessage());
+    @Test void testThatCustomerCanRegister() {
+        CreateCustomerResponse resp =
+                customerServices.register(createCustomerRequest);
+        CreateCustomerResponse resp1 =
+                customerServices.register(createCustomerRequest1);
+        assertEquals("201", resp.getStatusCode());
+        assertEquals("Customer created successfully", resp1.getMessage());
     }
 
     @Test
