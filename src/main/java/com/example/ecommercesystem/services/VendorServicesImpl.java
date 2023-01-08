@@ -19,6 +19,10 @@ public class VendorServicesImpl implements VendorServices{
     @Autowired
     private ProductServices productServices;
 
+    @Autowired
+    private ProductRepository productRepository;
+
+
     private final Vendor vendor = new Vendor();
     @Override
     public CreateVendorResponse createVendor(CreateVendorRequest createVendorRequest) {
@@ -107,8 +111,22 @@ public class VendorServicesImpl implements VendorServices{
         product.setPrice(addProductRequest.getPrice());
         product.setProductCategories(addProductRequest.getProductCategories());
         foundVendor.getProducts().add(product);
-        productServices.createProduct(addProductRequest);
-
+        productRepository.save(product);
         return new AddProductResponse("Product has been added successfully");
+    }
+
+    @Override
+    public Product findProductById(String id) {
+        return null;
+    }
+
+    @Override
+    public GetResponse updateProduct(String vendorId, ProductUpdateRequest productUpdateRequest) {
+        return null;
+    }
+
+    @Override
+    public GetResponse deleteProduct(String productId) {
+        return null;
     }
 }

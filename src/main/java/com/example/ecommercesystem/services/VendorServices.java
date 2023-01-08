@@ -18,6 +18,6 @@ public interface VendorServices {
     Product findProductById(String id);
     GetResponse updateProduct (String vendorId, ProductUpdateRequest productUpdateRequest);
 
-    GetResponse deleteProduct(String id);
+    GetResponse deleteProduct(String productId);
 
 }
