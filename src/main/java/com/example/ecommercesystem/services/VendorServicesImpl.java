@@ -117,7 +117,8 @@ public class VendorServicesImpl implements VendorServices{
 
     @Override
     public Product findProductById(String id) {
-        return null;
+        return productRepository.findById(id).orElseThrow(()-> new
+                RuntimeException("product with the id"+ id +"not found"));
     }
 
     @Override
