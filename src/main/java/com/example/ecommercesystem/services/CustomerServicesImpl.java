@@ -98,7 +98,7 @@ public class CustomerServicesImpl implements CustomerServices{
         foundCustomer.setPhoneNumber(updateCustomerRequest.getPhoneNumber() != null && !updateCustomerRequest.getPhoneNumber().
                 equals("") ? updateCustomerRequest.getPhoneNumber() : foundCustomer.getPhoneNumber());
         customerRepository.save(foundCustomer);
-        return new GetResponse("User detail updated successfully");
+        return new GetResponse("Your details are updated successfully");
     }
     @Override
     public List<Customer> findAllCustomers() {
@@ -110,7 +110,7 @@ public class CustomerServicesImpl implements CustomerServices{
         Customer foundCustomer = customerRepository.findById(id).orElseThrow(()-> new
                 RuntimeException("Customer with the id"+ id +"does not exist"));
         customerRepository.delete(foundCustomer);
-        return new GetResponse("Customer with the id"+ id +"has been deleted");
+        return new GetResponse("Customer has been deleted");
     }
     @Override
     public OrderProductResponse orderProduct(OrderProductRequest orderProductRequest) {

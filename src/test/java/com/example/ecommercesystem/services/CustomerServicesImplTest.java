@@ -1,8 +1,14 @@
 package com.example.ecommercesystem.services;
 
+import com.example.ecommercesystem.data.model.ProductCategories;
 import com.example.ecommercesystem.dtos.request.CreateCustomerRequest;
+import com.example.ecommercesystem.dtos.request.LoginRequest;
 import com.example.ecommercesystem.dtos.request.OrderProductRequest;
+import com.example.ecommercesystem.dtos.request.UpdateCustomerRequest;
 import com.example.ecommercesystem.dtos.response.CreateCustomerResponse;
+import com.example.ecommercesystem.dtos.response.GetResponse;
+import com.example.ecommercesystem.dtos.response.LoginResponse;
+import com.example.ecommercesystem.dtos.response.OrderProductResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,47 +58,39 @@ class CustomerServicesImplTest {
     @Test
     void testThatCustomerCanLogin() {
         LoginRequest loginRequest = new LoginRequest();
-        loginRequest.setEmail(firstBuyerRegisterRequest.getEmail());
-        loginRequest.setPassword(firstBuyerRegisterRequest.getPassword());
-        LoginResponse loginResponse = customerService.login(loginRequest);
-        System.out.println(loginResponse);
-        assertEquals("successful login", loginResponse.getMessage());
+        loginRequest.setEmail(createCustomerRequest.getEmail());
+        loginRequest.setPassword(createCustomerRequest1.getPassword());
+        LoginResponse loginResponse = customerServices.login(loginRequest);
+        assertEquals("You're successfully logged in", loginResponse.getMessage());
     }
 
 
     @Test
-    void testThatCustomerCanBeUpdated() {
-        UpdateRequest updateCustomer = new UpdateRequest();
-        updateCustomer.setId(152);
-        updateCustomer.setEmail("Emailisupdated@gmail.com");
-        updateCustomer.setFirstName("Hakimi");
-        updateCustomer.setLastName("Davies");
-        updateCustomer.setPhone( "07035893966");
-        updateCustomer.setPassword("Englandmoro678#");
-        Response updateCustomerResponse =
-                customerService.updateCustomer(updateCustomer);
-        System.out.println(updateCustomerResponse);
-        assertEquals("Customer updated successfully", updateCustomerResponse.getMessage());
+    void testThatCustomerDetailsCanBeUpdated() {
+        UpdateCustomerRequest customerUpdate = new UpdateCustomerRequest();
+        customerUpdate.setId("");
+        customerUpdate.setEmail("Emailisupdated@gmail.com");
+        customerUpdate.setFirstName("Chibuzor");
+        GetResponse updateResponse =
+                customerServices.updateCustomer(customerUpdate);
+        assertEquals("Your details are updated successfully", updateResponse.getMessage());
     }
 
     @Test
     void testThatCustomerCanBeDeleted() {
-        Response deleteResponse = customerService.deleteCustomer(1);
-        System.out.println(deleteResponse);
-        assertEquals("Customer deleted", deleteResponse.getMessage());
+        GetResponse delResponse = customerServices.deleteCustomer("");
+        assertEquals("Customer has been deleted", delResponse.getMessage());
     }
 
-    @Test
-    void testThatCustomerCanOrderProduct() {
+    @Test void testThatCustomerCanOrderProduct() {
         orderProductRequest = new OrderProductRequest();
-        orderProductRequest.setCustomerId(1);
-        orderProductRequest.setQuantity(4);
-        orderProductRequest.setProductName("Versace, Turtle-neck");
-        orderProductRequest.setProductCategory(ProductCategory.GROCERIES);
-        orderProductRequest.setPrice(17000.00);
-        OrderProductResponse orderProductResponse = customerService.orderProduct(orderProductRequest);
-        System.out.println(orderProductResponse);
-        assertEquals(201, orderProductResponse.getStatusCode());
+        orderProductRequest.setCustomerId("");
+        orderProductRequest.setQuantity(2);
+        orderProductRequest.setProductName("sneakers");
+        orderProductRequest.setProductCategories(ProductCategories.FASHION);
+        orderProductRequest.setPrice(23000.00);
+        OrderProductResponse orderResponse = customerServices.orderProduct(orderProductRequest);
+        assertEquals("Order placed successfully", orderResponse.getMessage());
     }
 
 }
