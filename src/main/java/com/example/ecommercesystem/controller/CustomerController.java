@@ -26,4 +26,13 @@ public class CustomerController {
     public ResponseEntity<?> updateCustomer(@RequestBody UpdateCustomerRequest updateCustomerRequest){
         return ResponseEntity.ok(customerServices.updateCustomer(updateCustomerRequest));
     }
+
+    @GetMapping("/allcustomers")
+    public ResponseEntity<?> findAllCustomers(){
+        return ResponseEntity.ok(customerServices.findAllCustomers());
+    }
+    @DeleteMapping("/deletecustomer{id}")
+    public ResponseEntity<?> deleteCustomer(@PathVariable String id){
+        return ResponseEntity.ok(customerServices.deleteCustomer(id));
+    }
 }
