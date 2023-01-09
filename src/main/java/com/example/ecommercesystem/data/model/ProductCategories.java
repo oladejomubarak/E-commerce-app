@@ -1,5 +1,5 @@
 package com.example.ecommercesystem.data.model;
 
 public enum ProductCategories {
-    APPLIANCES, BEVERAGES, COMPUTING, ELECTRONICS, FASHION, EDUCATION
+    APPLIANCES, BEVERAGES, COMPUTING, ELECTRONICS, FASHION, EDUCATION, GAME
 }

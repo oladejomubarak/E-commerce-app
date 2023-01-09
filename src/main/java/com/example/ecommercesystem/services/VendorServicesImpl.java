@@ -1,6 +1,5 @@
 package com.example.ecommercesystem.services;
 
-import com.example.ecommercesystem.data.model.Customer;
 import com.example.ecommercesystem.data.model.Product;
 import com.example.ecommercesystem.data.model.Vendor;
 import com.example.ecommercesystem.data.repository.ProductRepository;
@@ -24,9 +23,9 @@ public class VendorServicesImpl implements VendorServices{
     @Override
     public CreateVendorResponse createVendor(CreateVendorRequest createVendorRequest) {
         validateInput(createVendorRequest);
-        return registerCustomer(createVendorRequest);
+        return registerVendor(createVendorRequest);
     }
-    private CreateVendorResponse registerCustomer(CreateVendorRequest createVendorRequest) {
+    private CreateVendorResponse registerVendor(CreateVendorRequest createVendorRequest) {
         if(vendorRepository.findVendorByEmail(createVendorRequest.getEmail()).isPresent())
             throw new RuntimeException("The email already exists, try another email");
         else

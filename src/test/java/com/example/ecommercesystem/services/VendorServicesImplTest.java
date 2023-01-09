@@ -1,74 +1,80 @@
 package com.example.ecommercesystem.services;
 
+import com.example.ecommercesystem.data.model.ProductCategories;
+import com.example.ecommercesystem.dtos.request.AddProductRequest;
+import com.example.ecommercesystem.dtos.request.CreateVendorRequest;
+import com.example.ecommercesystem.dtos.request.LoginRequest;
+import com.example.ecommercesystem.dtos.request.UpdateVendorRequest;
+import com.example.ecommercesystem.dtos.response.AddProductResponse;
+import com.example.ecommercesystem.dtos.response.CreateVendorResponse;
+import com.example.ecommercesystem.dtos.response.GetResponse;
+import com.example.ecommercesystem.dtos.response.LoginResponse;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class VendorServicesImplTest {
 
     @Autowired
-    private VendorService vendorService;
+    private VendorServices vendorServices;
 
     private CreateVendorRequest createVendorRequest;
 
     @BeforeEach
     void setUp() {
         createVendorRequest = new CreateVendorRequest();
-        createVendorRequest.setStoreName("Ikeja City Mall");
-        createVendorRequest.setPhoneNumber("08123459204");
-        createVendorRequest.setEmailAddress("helloworld@gmail.com");
-        createVendorRequest.setPassword("Iamnotalone#12");
-        createVendorRequest.setStoreAddress("No 45, Abiola way, Lagos");
+        createVendorRequest.setFirstName("Ade");
+        createVendorRequest.setLastName("Yemi");
+        createVendorRequest.setPhoneNumber("070234592043456");
+        createVendorRequest.setPassword("kincaid@2");
     }
 
-    @Test
-    void createVendor() {
+    @Test void testThatVendorCanBeCreated() {
         CreateVendorResponse vendorResponse =
-                vendorService.createVendor(createVendorRequest);
-        System.out.println(vendorResponse);
-        assertEquals("Successfully registered", vendorResponse.getMessage());
+                vendorServices.createVendor(createVendorRequest);
+        assertEquals("Vendor created successfully", vendorResponse.getMessage());
     }
 
     @Test
     void login() {
-        LoginRequest login = new LoginRequest();
-        login.setEmail(createVendorRequest.getEmailAddress());
-        login.setPassword(createVendorRequest.getPassword());
-        LoginResponse response = vendorService.login(login);
-        System.out.println(response);
-        assertEquals("login is successful", response.getMessage());
+        LoginRequest loginVendor = new LoginRequest();
+        loginVendor.setEmail(createVendorRequest.getEmail());
+        loginVendor.setPassword(createVendorRequest.getPassword());
+        LoginResponse response = vendorServices.vendorLogin(loginVendor);
+        assertEquals("You're successfully logged in", response.getMessage());
     }
 
     @Test
     void updateVendor() {
-        UpdateRequest requestUpdate = new UpdateRequest();
-        requestUpdate.setId(2);
-        requestUpdate.setPhone("09161931557");
-        requestUpdate.setPassword("Youwillnever!17");
-        requestUpdate.setEmail("daredevil@yahoo.com");
+        UpdateVendorRequest updateVendor = new UpdateVendorRequest();
+        updateVendor.setId("");
+        updateVendor.setEmail("oladejoshina@gmail.com");
+        updateVendor.setPhoneNumber("09161931557564");
 
-        Response updateResponse = vendorService.updateVendor(requestUpdate);
-        System.out.println(updateResponse);
-        assertEquals("Vendor has been updated", updateResponse.getMessage());
+
+        GetResponse updateVendorResponse = vendorServices.updateVendor(updateVendor);
+        assertEquals("Vendor details updated successfully", updateVendorResponse.getMessage());
     }
 
     @Test
     void deleteVendor() {
-        Response delResponse = vendorService.deleteVendor(102);
-        System.out.println(delResponse);
-        assertEquals("Deleted", delResponse.getMessage());
+        GetResponse deleteResponse = vendorServices.deleteVendor("");
+        assertEquals("Vendor deleted successfully", deleteResponse.getMessage());
     }
 
     @Test
     void testThatVendorCanAddProduct() {
-        AddProductRequest productRequest = new AddProductRequest();
-        productRequest.setName("LG 55inch LED Television");
-        productRequest.setPrice(BigDecimal.valueOf(149000));
-        productRequest.setProductQuantity(5);
-        productRequest.setCategory(ProductCategory.COMPUTING);
-        Response response = vendorService.addProduct(1, productRequest);
+        AddProductRequest addProductRequest = new AddProductRequest();
+        addProductRequest.setName("PS 5 game console");
+        addProductRequest.setQuantity(10);
+        addProductRequest.setPrice(BigDecimal.valueOf(79000));
+        addProductRequest.setProductCategories(ProductCategories.GAME);
+        AddProductResponse response = vendorServices.addProduct("", addProductRequest);
         assertEquals("Product has been added successfully", response.getMessage());
     }
 
