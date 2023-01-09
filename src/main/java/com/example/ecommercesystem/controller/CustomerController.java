@@ -2,6 +2,7 @@ package com.example.ecommercesystem.controller;
 
 import com.example.ecommercesystem.dtos.request.CreateCustomerRequest;
 import com.example.ecommercesystem.dtos.request.LoginRequest;
+import com.example.ecommercesystem.dtos.request.OrderProductRequest;
 import com.example.ecommercesystem.dtos.request.UpdateCustomerRequest;
 import com.example.ecommercesystem.services.CustomerServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,12 @@ public class CustomerController {
     public ResponseEntity<?> findAllCustomers(){
         return ResponseEntity.ok(customerServices.findAllCustomers());
     }
-    @DeleteMapping("/deletecustomer{id}")
+    @DeleteMapping("/deletecustomer/{id}")
     public ResponseEntity<?> deleteCustomer(@PathVariable String id){
         return ResponseEntity.ok(customerServices.deleteCustomer(id));
+    }
+    @PostMapping("/orderproduct")
+    public ResponseEntity<?> orderProduct(@RequestBody OrderProductRequest orderProductRequest){
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerServices.orderProduct(orderProductRequest));
     }
 }
