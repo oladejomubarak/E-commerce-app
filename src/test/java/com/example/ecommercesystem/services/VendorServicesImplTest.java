@@ -1,10 +1,8 @@
 package com.example.ecommercesystem.services;
 
 import com.example.ecommercesystem.data.model.ProductCategories;
-import com.example.ecommercesystem.dtos.request.AddProductRequest;
-import com.example.ecommercesystem.dtos.request.CreateVendorRequest;
-import com.example.ecommercesystem.dtos.request.LoginRequest;
-import com.example.ecommercesystem.dtos.request.UpdateVendorRequest;
+import com.example.ecommercesystem.data.repository.ProductRepository;
+import com.example.ecommercesystem.dtos.request.*;
 import com.example.ecommercesystem.dtos.response.AddProductResponse;
 import com.example.ecommercesystem.dtos.response.CreateVendorResponse;
 import com.example.ecommercesystem.dtos.response.GetResponse;
@@ -23,6 +21,8 @@ class VendorServicesImplTest {
     @Autowired
     private VendorServices vendorServices;
 
+    private ProductRepository productRepository;
+
     private CreateVendorRequest createVendorRequest;
 
     @BeforeEach
@@ -34,7 +34,8 @@ class VendorServicesImplTest {
         createVendorRequest.setPassword("kincaid@2");
     }
 
-    @Test void testThatVendorCanBeCreated() {
+    @Test
+    void testThatVendorCanBeCreated() {
         CreateVendorResponse vendorResponse =
                 vendorServices.createVendor(createVendorRequest);
         assertEquals("Vendor created successfully", vendorResponse.getMessage());
@@ -79,31 +80,23 @@ class VendorServicesImplTest {
     }
 
 
-
-
-
-
-
-
-
     @Test
     void testThatProductCanBeUpdated() {
         ProductUpdateRequest productUpdateRequest = new ProductUpdateRequest();
-        productUpdateRequest.setId(352);
-        productUpdateRequest.setCategory(String.valueOf(ProductCategory.APPLIANCES));
-        productUpdateRequest.setName("Standing Fan");
+        productUpdateRequest.setId("");
+        productUpdateRequest.setProductCategories(ProductCategories.BEVERAGES);
         productUpdateRequest.setPrice(BigDecimal.valueOf(24000.00));
-        productUpdateRequest.setQuantity(20);
-        Response response = productService.updateProduct(productUpdateRequest);
-        System.out.println(response);
-        assertEquals("Product update successful", response.getMessage());
+        productUpdateRequest.setQuantity(48);
+        GetResponse productResponse = vendorServices.updateProduct(productUpdateRequest);
+        assertEquals("product has been updated successfully", productResponse.getMessage());
 
     }
 
     @Test
     void testThatProductCanBeDeleted() {
-        Response deleteResponse = productService.deleteProduct(52);
+        GetResponse deleteResponse = vendorServices.deleteProduct("");
         System.out.println(deleteResponse);
-        assertEquals("Product has been deleted", deleteResponse.getMessage());
+        assertEquals("product successfully deleted", deleteResponse.getMessage());
 
+    }
 }
