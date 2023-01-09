@@ -87,15 +87,7 @@ public class CustomerServicesImpl implements CustomerServices{
     public GetResponse updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
         Customer foundCustomer = customerRepository.findById(updateCustomerRequest.getId())
                 .orElseThrow(() -> new RuntimeException("Vendor not found"));
-        if(updateCustomerRequest.getEmail() != null){
-       if (!UserValidator.isValidEmail(updateCustomerRequest.getEmail())) throw new RuntimeException(
-                String.format("The email %s is invalid", updateCustomerRequest.getEmail()));}
-        if(updateCustomerRequest.getPassword() != null){
-        if (!UserValidator.isValidPassword(updateCustomerRequest.getPassword())) throw new RuntimeException(
-                String.format("Password %s is weak, choose a strong one", updateCustomerRequest.getPassword()));}
-        if(updateCustomerRequest.getPhoneNumber() != null){
-       if (!UserValidator.isValidPhoneNumber(updateCustomerRequest.getPhoneNumber())) throw new RuntimeException(
-                String.format("The phone number %s is invalid", updateCustomerRequest.getPhoneNumber()));}
+        validateUpdateInput(updateCustomerRequest);
 
         foundCustomer.setEmail(updateCustomerRequest.getEmail() != null && !updateCustomerRequest.getEmail().equals("")
                 ? updateCustomerRequest.getEmail() : foundCustomer.getEmail());
@@ -111,6 +103,19 @@ public class CustomerServicesImpl implements CustomerServices{
         customerRepository.save(foundCustomer);
         return new GetResponse("Your details are updated successfully");
     }
+
+    private void validateUpdateInput(UpdateCustomerRequest updateCustomerRequest) {
+        if(updateCustomerRequest.getEmail() != null){
+       if (!UserValidator.isValidEmail(updateCustomerRequest.getEmail())) throw new RuntimeException(
+                String.format("The email %s is invalid", updateCustomerRequest.getEmail()));}
+        if(updateCustomerRequest.getPassword() != null){
+        if (!UserValidator.isValidPassword(updateCustomerRequest.getPassword())) throw new RuntimeException(
+                String.format("Password %s is weak, choose a strong one", updateCustomerRequest.getPassword()));}
+        if(updateCustomerRequest.getPhoneNumber() != null){
+       if (!UserValidator.isValidPhoneNumber(updateCustomerRequest.getPhoneNumber())) throw new RuntimeException(
+                String.format("The phone number %s is invalid", updateCustomerRequest.getPhoneNumber()));}
+    }
+
     @Override
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
