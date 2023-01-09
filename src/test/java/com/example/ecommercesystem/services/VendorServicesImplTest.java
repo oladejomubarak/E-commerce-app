@@ -84,7 +84,7 @@ class VendorServicesImplTest {
     @Test
     void testThatProductCanBeUpdated() {
         ProductUpdateRequest productUpdateRequest = new ProductUpdateRequest();
-        productUpdateRequest.setId("");
+        productUpdateRequest.setId("63bbffa2787d713251eafbbc");
         productUpdateRequest.setProductCategories(ProductCategories.BEVERAGES);
         productUpdateRequest.setPrice(BigDecimal.valueOf(24000.00));
         productUpdateRequest.setQuantity(48);
@@ -95,7 +95,7 @@ class VendorServicesImplTest {
 
     @Test
     void testThatProductCanBeDeleted() {
-        GetResponse deleteResponse = vendorServices.deleteProduct("");
+        GetResponse deleteResponse = vendorServices.deleteProduct("63bbffa2787d713251eafbbc");
         System.out.println(deleteResponse);
         assertEquals("product successfully deleted", deleteResponse.getMessage());
 
