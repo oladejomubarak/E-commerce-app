@@ -70,7 +70,7 @@ class CustomerServicesImplTest {
     void testThatCustomerDetailsCanBeUpdated() {
         UpdateCustomerRequest customerUpdate = new UpdateCustomerRequest();
         customerUpdate.setId("63bb4c522411284866b235a1");
-        customerUpdate.setEmail("updateemai@gmail.com");
+        customerUpdate.setEmail("updatedmai@gmail.com");
         customerUpdate.setFirstName("Chibuzor");
         GetResponse updateResponse =
                 customerServices.updateCustomer(customerUpdate);
