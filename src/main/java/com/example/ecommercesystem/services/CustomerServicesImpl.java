@@ -87,10 +87,21 @@ public class CustomerServicesImpl implements CustomerServices{
     public GetResponse updateCustomer(UpdateCustomerRequest updateCustomerRequest) {
         Customer foundCustomer = customerRepository.findById(updateCustomerRequest.getId())
                 .orElseThrow(() -> new RuntimeException("Vendor not found"));
+
+//        if (!UserValidator.isValidEmail(updateCustomerRequest.getEmail())) throw new RuntimeException(
+//                String.format("The email %s is invalid", updateCustomerRequest.getEmail()));
+
+//        if (!UserValidator.isValidPassword(updateCustomerRequest.getPassword())) throw new RuntimeException(
+//                String.format("Password %s is weak, choose a strong one", updateCustomerRequest.getPassword()));
+
+//        if (!UserValidator.isValidPhoneNumber(updateCustomerRequest.getPhoneNumber())) throw new RuntimeException(
+//                String.format("The phone number %s is invalid", updateCustomerRequest.getPhoneNumber()));
+
         foundCustomer.setEmail(updateCustomerRequest.getEmail() != null && !updateCustomerRequest.getEmail().equals("")
                 ? updateCustomerRequest.getEmail() : foundCustomer.getEmail());
         foundCustomer.setPassword(updateCustomerRequest.getPassword() != null && !updateCustomerRequest.getPassword()
                 .equals("") ? updateCustomerRequest.getPassword() : foundCustomer.getPassword());
+
         foundCustomer.setFirstName(updateCustomerRequest.getFirstName() != null && !updateCustomerRequest.getFirstName().
                 equals("") ? updateCustomerRequest.getFirstName() : foundCustomer.getFirstName());
         foundCustomer.setLastName(updateCustomerRequest.getLastName() != null && !updateCustomerRequest.getLastName().

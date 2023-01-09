@@ -21,7 +21,7 @@ class VendorServicesImplTest {
     @Autowired
     private VendorServices vendorServices;
 
-    private ProductRepository productRepository;
+    //private ProductRepository productRepository;
 
     private CreateVendorRequest createVendorRequest;
 
@@ -30,6 +30,7 @@ class VendorServicesImplTest {
         createVendorRequest = new CreateVendorRequest();
         createVendorRequest.setFirstName("Ade");
         createVendorRequest.setLastName("Yemi");
+        createVendorRequest.setEmail("olademubar@gmail.com");
         createVendorRequest.setPhoneNumber("070234592043456");
         createVendorRequest.setPassword("kincaid@2");
     }
@@ -53,7 +54,7 @@ class VendorServicesImplTest {
     @Test
     void updateVendor() {
         UpdateVendorRequest updateVendor = new UpdateVendorRequest();
-        updateVendor.setId("");
+        updateVendor.setId("63bbe9521609dc350af00e13");
         updateVendor.setEmail("oladejoshina@gmail.com");
         updateVendor.setPhoneNumber("09161931557564");
 
@@ -64,7 +65,7 @@ class VendorServicesImplTest {
 
     @Test
     void deleteVendor() {
-        GetResponse deleteResponse = vendorServices.deleteVendor("");
+        GetResponse deleteResponse = vendorServices.deleteVendor("63bbe9521609dc350af00e13");
         assertEquals("Vendor deleted successfully", deleteResponse.getMessage());
     }
 
@@ -75,7 +76,7 @@ class VendorServicesImplTest {
         addProductRequest.setQuantity(10);
         addProductRequest.setPrice(BigDecimal.valueOf(79000));
         addProductRequest.setProductCategories(ProductCategories.GAME);
-        AddProductResponse response = vendorServices.addProduct("", addProductRequest);
+        AddProductResponse response = vendorServices.addProduct("63bbfeee675e4f61d43ce375", addProductRequest);
         assertEquals("Product has been added successfully", response.getMessage());
     }
 
