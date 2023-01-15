@@ -105,15 +105,15 @@ public class CustomerServicesImpl implements CustomerServices{
     }
 
     private void validateUpdateInput(UpdateCustomerRequest updateCustomerRequest) {
-        if(updateCustomerRequest.getEmail() != null){
-       if (!UserValidator.isValidEmail(updateCustomerRequest.getEmail())) throw new RuntimeException(
-                String.format("The email %s is invalid", updateCustomerRequest.getEmail()));}
-        if(updateCustomerRequest.getPassword() != null){
-        if (!UserValidator.isValidPassword(updateCustomerRequest.getPassword())) throw new RuntimeException(
-                String.format("Password %s is weak, choose a strong one", updateCustomerRequest.getPassword()));}
-        if(updateCustomerRequest.getPhoneNumber() != null){
-       if (!UserValidator.isValidPhoneNumber(updateCustomerRequest.getPhoneNumber())) throw new RuntimeException(
-                String.format("The phone number %s is invalid", updateCustomerRequest.getPhoneNumber()));}
+        if(updateCustomerRequest.getEmail() != null && !UserValidator.isValidEmail(updateCustomerRequest.getEmail()))
+            throw new RuntimeException(
+                String.format("The email %s is invalid", updateCustomerRequest.getEmail()));
+        if(updateCustomerRequest.getPassword() != null && !UserValidator.isValidPassword(updateCustomerRequest.getPassword()))
+            throw new RuntimeException(
+                String.format("Password %s is weak, choose a strong one", updateCustomerRequest.getPassword()));
+        if(updateCustomerRequest.getPhoneNumber() != null && !UserValidator.isValidPhoneNumber(updateCustomerRequest
+                .getPhoneNumber())) throw new RuntimeException(
+                String.format("The phone number %s is invalid", updateCustomerRequest.getPhoneNumber()));
     }
 
     @Override
