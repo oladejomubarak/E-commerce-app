@@ -135,6 +135,7 @@ public class CustomerServicesImpl implements CustomerServices{
         Order customerOrder = placeOrder(orderProductRequest);
 
         var addOrderToList= foundCustomer.getCustomerOrders().add(customerOrder);
+        customerRepository.save(foundCustomer);
         Order order = orderRepository.save(customerOrder);
 
         OrderProductResponse orderProductResponse = new OrderProductResponse();
